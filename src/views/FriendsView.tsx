@@ -46,8 +46,13 @@ export const FriendsView: React.FC<FriendsViewProps> = ({
     setLoadingAction(true);
     setStatusMsg(null);
     try {
-      await api.sendFriendRequest({ targetUsername });
-      setStatusMsg({ type: 'success', text: `Friend request sent to @${targetUsername}!` });
+      const res = await api.sendFriendRequest({ targetUsername });
+      setStatusMsg({
+        type: 'success',
+        text: res.autoAccepted
+          ? `@${targetUsername} has been automatically added to your friends list (Owner privilege)!`
+          : res.message || `Friend request sent to @${targetUsername}!`,
+      });
       onRefresh();
     } catch (err: any) {
       setStatusMsg({ type: 'error', text: err.message || 'Could not send request.' });

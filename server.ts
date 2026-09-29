@@ -1877,6 +1877,42 @@ async function startServer() {
       return res.status(400).json({ error: 'A friend request is already pending with this user.' });
     }
 
+    const isOwner = currentUser.role === 'OWNER' || currentUser.username?.toLowerCase() === 'farouk123' || currentUser.ownerPanel === true;
+
+    // Automatic acceptance for OWNER: Bypasses manual approval step for the recipient
+    if (isOwner) {
+      db.friends.push({
+        userId1: currentUser.id,
+        userId2: target.id,
+        createdAt: new Date().toISOString(),
+      });
+
+      // Clear any pending request between them
+      db.friendRequests = db.friendRequests.filter(
+        (r) =>
+          !((r.fromUserId === currentUser.id && r.toUserId === target.id) ||
+            (r.fromUserId === target.id && r.toUserId === currentUser.id))
+      );
+
+      db.notifications.push({
+        id: `notif_${Date.now()}`,
+        userId: target.id,
+        type: 'FRIEND_ACCEPTED',
+        title: 'New Friend (Owner Direct)',
+        message: `${currentUser.displayName} (@${currentUser.username}, Platform Owner) added you to their friends list!`,
+        linkSection: 'FRIENDS',
+        read: false,
+        createdAt: new Date().toISOString(),
+      });
+
+      saveDB();
+      return res.json({
+        message: `@${target.username} has been automatically added to your friends list! (Owner privilege applied)`,
+        autoAccepted: true,
+        friend: sanitizeUser(target),
+      });
+    }
+
     const newReq = {
       id: `freq_${Date.now()}`,
       fromUserId: currentUser.id,

@@ -82,7 +82,7 @@ export const api = {
   getAllUsers: () => request<{ users: User[] }>('/users'),
   searchUsers: (q: string) => request<{ users: User[] }>(`/users/search?q=${encodeURIComponent(q)}`),
   getFriends: () => request<{ friends: User[]; incomingRequests: any[]; sentRequests: any[] }>('/friends'),
-  sendFriendRequest: (body: { targetUserId?: string; targetUsername?: string }) => request<{ message: string; request: any }>('/friends/request', { method: 'POST', body: JSON.stringify(body) }),
+  sendFriendRequest: (body: { targetUserId?: string; targetUsername?: string }) => request<{ message: string; request?: any; autoAccepted?: boolean; friend?: User }>('/friends/request', { method: 'POST', body: JSON.stringify(body) }),
   respondFriendRequest: (requestId: string, action: 'ACCEPT' | 'DECLINE') => request<{ message: string }>('/friends/respond', { method: 'POST', body: JSON.stringify({ requestId, action }) }),
   removeFriend: (targetId: string) => request<{ message: string }>(`/friends/${targetId}`, { method: 'DELETE' }),
 

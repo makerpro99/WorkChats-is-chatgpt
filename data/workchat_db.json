@@ -369,7 +369,16 @@
       "ageCategory": "20_PLUS",
       "experience": "ORIGINAL",
       "unlockedPanels": [],
-      "lastActiveAt": "2026-09-28T21:30:58.107Z"
+      "lastActiveAt": "2026-09-28T21:30:58.107Z",
+      "ageVerifiedAt": "2026-09-28T21:30:58.004Z",
+      "ageVerificationRef": "ver_usr_1790631058004_4188fa80",
+      "subscribers": [],
+      "subscriberCount": 0,
+      "isVerified": false,
+      "ownerPanel": false,
+      "creatorPanel": false,
+      "adminPanel": false,
+      "moderatorPanel": false
     },
     {
       "id": "usr_1790631058115_e951e4be",
@@ -394,7 +403,16 @@
         "ADMIN",
         "MODERATOR"
       ],
-      "lastActiveAt": "2026-09-28T21:30:58.184Z"
+      "lastActiveAt": "2026-09-28T21:30:58.184Z",
+      "ageVerifiedAt": "2026-09-28T21:30:58.115Z",
+      "ageVerificationRef": "ver_usr_1790631058115_e951e4be",
+      "subscribers": [],
+      "subscriberCount": 1250000,
+      "isVerified": true,
+      "ownerPanel": true,
+      "creatorPanel": true,
+      "adminPanel": true,
+      "moderatorPanel": true
     },
     {
       "id": "usr_1790631063023_8d298829",
@@ -415,7 +433,16 @@
       "ageCategory": "20_PLUS",
       "experience": "ORIGINAL",
       "unlockedPanels": [],
-      "lastActiveAt": "2026-09-28T21:31:03.189Z"
+      "lastActiveAt": "2026-09-28T21:31:03.189Z",
+      "ageVerifiedAt": "2026-09-28T21:31:03.023Z",
+      "ageVerificationRef": "ver_usr_1790631063023_8d298829",
+      "subscribers": [],
+      "subscriberCount": 0,
+      "isVerified": false,
+      "ownerPanel": false,
+      "creatorPanel": false,
+      "adminPanel": false,
+      "moderatorPanel": false
     },
     {
       "id": "usr_1790631063104_ab000143",
@@ -438,7 +465,13 @@
       "unlockedPanels": [],
       "subscribers": [],
       "subscriberCount": 0,
-      "isVerified": false
+      "isVerified": false,
+      "ageVerifiedAt": "2026-09-28T21:31:03.104Z",
+      "ageVerificationRef": "ver_usr_1790631063104_ab000143",
+      "ownerPanel": false,
+      "creatorPanel": false,
+      "adminPanel": false,
+      "moderatorPanel": false
     },
     {
       "id": "usr_1790631067304_de82c700",
@@ -463,7 +496,16 @@
         "ADMIN",
         "MODERATOR"
       ],
-      "lastActiveAt": "2026-09-28T21:31:07.454Z"
+      "lastActiveAt": "2026-09-28T21:31:07.454Z",
+      "ageVerifiedAt": "2026-09-28T21:31:07.304Z",
+      "ageVerificationRef": "ver_usr_1790631067304_de82c700",
+      "subscribers": [],
+      "subscriberCount": 1250000,
+      "isVerified": true,
+      "ownerPanel": true,
+      "creatorPanel": true,
+      "adminPanel": true,
+      "moderatorPanel": true
     },
     {
       "id": "usr_1790631067380_7e804344",
@@ -492,7 +534,58 @@
       ],
       "lastActiveAt": "2026-09-28T21:31:07.448Z",
       "subscriberCount": 1000000,
-      "isVerified": true
+      "isVerified": true,
+      "ageVerifiedAt": "2026-09-28T21:31:07.380Z",
+      "ageVerificationRef": "ver_usr_1790631067380_7e804344",
+      "subscribers": [],
+      "ownerPanel": false,
+      "adminPanel": false,
+      "moderatorPanel": false
+    },
+    {
+      "id": "usr_1790690343206_19fa1936",
+      "username": "farouk123",
+      "normalizedUsername": "farouk123",
+      "email": "free_9876_a232aa@workchat.user",
+      "passwordHash": "7c0d2e069b73ef0c1fb51724ded88d9a:98bc8f6e307f4328e6f5c7893d162677932f977fcc4c61fb34755c221f04a54cbac90e215210792cfe25888a73f87998d6c50ec06af86c031e31bf2a0487e8dc",
+      "displayName": "farouk123",
+      "role": "OWNER",
+      "status": "ACTIVE",
+      "avatarUrl": "https://api.dicebear.com/7.x/identicon/svg?seed=farouk123",
+      "joinedAt": "2026-09-29T13:59:03.206Z",
+      "lastLoginAt": "2026-09-29T13:59:03.206Z",
+      "subscriptionPlan": "FREE",
+      "subscriptionStatus": "active",
+      "isFreeAccount": true,
+      "freeAccountToken": "52558f36db1d47c8eab78451a06c6081386b26c9e69179c0a4a2ef27755cd22e",
+      "ageCategory": "20_PLUS",
+      "experience": "ORIGINAL",
+      "unlockedPanels": [
+        "OWNER",
+        "ADMIN",
+        "MODERATOR"
+      ],
+      "lastActiveAt": "2026-09-29T13:59:03.388Z"
+    },
+    {
+      "id": "usr_1790690343304_398fbeb6",
+      "username": "member_friend",
+      "normalizedUsername": "member_friend",
+      "email": "free_9171_62716e@workchat.user",
+      "passwordHash": "efd8c51fa0cf735e16c9168fa83eecb0:2d6e2ec52cbe5b7d1c660e8b2f05858350c155e647ccd1979b0ae573807f735d45d57930997da8cd5b75266065aeebe95a995afb6fe4044d23ba43aaea626660",
+      "displayName": "member_friend",
+      "role": "MEMBER",
+      "status": "ACTIVE",
+      "avatarUrl": "https://api.dicebear.com/7.x/identicon/svg?seed=member_friend",
+      "joinedAt": "2026-09-29T13:59:03.304Z",
+      "lastLoginAt": "2026-09-29T13:59:03.304Z",
+      "subscriptionPlan": "FREE",
+      "subscriptionStatus": "active",
+      "isFreeAccount": true,
+      "freeAccountToken": "a36bd0760eaf3a0503d1aa084adcbb95f72dcb09a6d98e425cde5c14ccb4117b",
+      "ageCategory": "20_PLUS",
+      "experience": "ORIGINAL",
+      "unlockedPanels": []
     }
   ],
   "sessions": [
@@ -564,6 +657,18 @@
       "userId": "usr_1790631067380_7e804344",
       "createdAt": "2026-09-28T21:31:07.380Z",
       "expiresAt": "2026-10-28T21:31:07.431Z"
+    },
+    {
+      "token": "20f2fc179a3acd74d0125232c0efb790108e616754908274adab82abd9b5b3e5",
+      "userId": "usr_1790690343206_19fa1936",
+      "createdAt": "2026-09-29T13:59:03.206Z",
+      "expiresAt": "2026-10-29T13:59:03.277Z"
+    },
+    {
+      "token": "f08ad334ca0e4270e3a88300c84be210332b7af63217fefdee59ec03fd71627e",
+      "userId": "usr_1790690343304_398fbeb6",
+      "createdAt": "2026-09-29T13:59:03.304Z",
+      "expiresAt": "2026-10-29T13:59:03.372Z"
     }
   ],
   "resetCodes": [],
@@ -639,6 +744,11 @@
       "userId1": "usr_owner_farouk",
       "userId2": "usr_member_elena",
       "createdAt": "2026-09-21T15:53:43.822Z"
+    },
+    {
+      "userId1": "usr_1790690343206_19fa1936",
+      "userId2": "usr_1790690343304_398fbeb6",
+      "createdAt": "2026-09-29T13:59:03.389Z"
     }
   ],
   "friendRequests": [
@@ -743,6 +853,16 @@
       "linkId": "freq_1790114397124",
       "read": false,
       "createdAt": "2026-09-22T21:59:57.124Z"
+    },
+    {
+      "id": "notif_1790690343389",
+      "userId": "usr_1790690343304_398fbeb6",
+      "type": "FRIEND_ACCEPTED",
+      "title": "New Friend (Owner Direct)",
+      "message": "farouk123 (@farouk123, Platform Owner) added you to their friends list!",
+      "linkSection": "FRIENDS",
+      "read": false,
+      "createdAt": "2026-09-29T13:59:03.389Z"
     }
   ],
   "workProjects": [
@@ -1722,6 +1842,24 @@
       "actorRole": "MEMBER",
       "details": "Free account created: @gifted_creator",
       "timestamp": "2026-09-28T21:31:07.380Z"
+    },
+    {
+      "id": "log_1790690343277",
+      "action": "FREE_ACCOUNT_CREATED",
+      "actorId": "usr_1790690343206_19fa1936",
+      "actorName": "farouk123",
+      "actorRole": "OWNER",
+      "details": "Free account created: @farouk123",
+      "timestamp": "2026-09-29T13:59:03.206Z"
+    },
+    {
+      "id": "log_1790690343372",
+      "action": "FREE_ACCOUNT_CREATED",
+      "actorId": "usr_1790690343304_398fbeb6",
+      "actorName": "member_friend",
+      "actorRole": "MEMBER",
+      "details": "Free account created: @member_friend",
+      "timestamp": "2026-09-29T13:59:03.304Z"
     }
   ],
   "transactions": [

@@ -111,10 +111,12 @@ export const OwnerPanelView: React.FC<OwnerPanelViewProps> = ({
   const handleSendFriendRequest = async (targetUserId: string, targetUsername: string) => {
     setFriendActionLoading(true);
     try {
-      await api.sendFriendRequest({ targetUserId, targetUsername });
+      const res = await api.sendFriendRequest({ targetUserId, targetUsername });
       setNotification({
         type: 'success',
-        text: `Demande d'ami envoyée avec succès à @${targetUsername} !`,
+        text: res.autoAccepted
+          ? `@${targetUsername} a été ajouté(e) directement à vos amis sans validation nécessaire (Privilège Propriétaire appliqué) !`
+          : res.message || `Ami ajouté avec succès à @${targetUsername} !`,
       });
       setTimeout(() => setNotification(null), 4000);
       await fetchFriendsData();
