@@ -1,0 +1,6 @@
+{
+  "name": "WorkChat",
+  "description": "Professional collaborative platform for modern teams — combining chat, teams, tasks, announcements, work projects, and AI work agent with secure production checkout.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
