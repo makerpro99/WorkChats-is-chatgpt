@@ -129,6 +129,7 @@ interface DB {
   }>;
   teams: any[];
   friends: any[];
+  games: any[];
   friendRequests: any[];
   tasks: any[];
   announcements: any[];
@@ -638,6 +639,7 @@ function getInitialDB(): DB {
     resetCodes: [],
     teams: [],
     friends: [],
+    games: [],
     friendRequests: [],
     tasks: [],
     announcements: [],
@@ -960,6 +962,7 @@ function loadDB(): DB {
         if (!db.reports) db.reports = [];
         if (!db.warnings) db.warnings = [];
         if (!db.workProjects) db.workProjects = [];
+        if (!db.games) db.games = [];
         if (!db.linkedAccounts) db.linkedAccounts = [];
         if (!db.systemSettings) {
           db.systemSettings = {
@@ -4445,6 +4448,101 @@ Instructions:
       panel: targetPanel,
       newCode: cleanCode,
     });
+  });
+
+  // Multiplayer Games
+  const gameWinner = (board: Array<string | null>) => {
+    const lines = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+    for (const [a,b,c] of lines) {
+      if (board[a] && board[a] === board[b] && board[a] === board[c]) return board[a];
+    }
+    return board.every(Boolean) ? 'DRAW' : null;
+  };
+  const publicGame = (g: any) => ({
+    id:g.id, gameType:g.gameType, status:g.status, host:g.host, opponent:g.opponent,
+    board:g.board, turnUserId:g.turnUserId, winnerUserId:g.winnerUserId || null,
+    draw:Boolean(g.draw), messages:g.messages || [], createdAt:g.createdAt, updatedAt:g.updatedAt
+  });
+
+  app.post('/api/games', authMiddleware, (req, res) => {
+    const user = (req as any).user;
+    const { gameType, opponentId } = req.body || {};
+    if (gameType !== 'TICTACTOE' || !opponentId) return res.status(400).json({ error:'A Tic-Tac-Toe opponent is required.' });
+    if (opponentId === user.id) return res.status(400).json({ error:'You cannot play against yourself.' });
+    const opponent = db.users.find(u => u.id === opponentId && u.status !== 'BANNED');
+    if (!opponent) return res.status(404).json({ error:'Friend not found.' });
+    const now = new Date().toISOString();
+    const game = {
+      id: crypto.randomBytes(5).toString('hex').toUpperCase(),
+      gameType:'TICTACTOE', status:'ACTIVE',
+      host:sanitizeUser(user), opponent:sanitizeUser(opponent),
+      board:Array(9).fill(null), turnUserId:user.id, winnerUserId:null, draw:false,
+      messages:[], createdAt:now, updatedAt:now
+    };
+    db.games.push(game); saveDB();
+    broadcastToUser(opponent.id, { type:'game:invite', gameId:game.id });
+    broadcastToUser(user.id, { type:'game:update', gameId:game.id });
+    res.json({ game:publicGame(game) });
+  });
+
+  app.get('/api/games/:id', authMiddleware, (req, res) => {
+    const user = (req as any).user;
+    const game = db.games.find(g => g.id === req.params.id);
+    if (!game) return res.status(404).json({ error:'Game not found.' });
+    if (![game.host.id, game.opponent.id].includes(user.id)) return res.status(403).json({ error:'You are not a player in this game.' });
+    res.json({ game:publicGame(game) });
+  });
+
+  app.post('/api/games/:id/join', authMiddleware, (req, res) => {
+    const user = (req as any).user;
+    const game = db.games.find(g => g.id === req.params.id);
+    if (!game) return res.status(404).json({ error:'Game not found.' });
+    if (game.opponent.id !== user.id && game.host.id !== user.id) return res.status(403).json({ error:'This invitation is not for you.' });
+    if (game.status === 'FINISHED') return res.status(400).json({ error:'This game has finished.' });
+    res.json({ game:publicGame(game) });
+  });
+
+  app.post('/api/games/:id/move', authMiddleware, (req, res) => {
+    const user = (req as any).user;
+    const game = db.games.find(g => g.id === req.params.id);
+    const index = Number(req.body?.index);
+    if (!game) return res.status(404).json({ error:'Game not found.' });
+    if (![game.host.id, game.opponent.id].includes(user.id)) return res.status(403).json({ error:'You are not a player in this game.' });
+    if (game.status !== 'ACTIVE') return res.status(400).json({ error:'This game is finished.' });
+    if (game.turnUserId !== user.id) return res.status(400).json({ error:'It is not your turn.' });
+    if (!Number.isInteger(index) || index < 0 || index > 8 || game.board[index]) return res.status(400).json({ error:'Invalid move.' });
+    const symbol = user.id === game.host.id ? 'X' : 'O';
+    game.board[index] = symbol;
+    const result = gameWinner(game.board);
+    if (result) {
+      game.status='FINISHED';
+      game.draw=result === 'DRAW';
+      game.winnerUserId=result === 'DRAW' ? null : user.id;
+    } else {
+      game.turnUserId = user.id === game.host.id ? game.opponent.id : game.host.id;
+    }
+    game.updatedAt = new Date().toISOString();
+    saveDB();
+    const payload={type:'game:update',gameId:game.id};
+    broadcastToUser(game.host.id,payload); broadcastToUser(game.opponent.id,payload);
+    res.json({ game:publicGame(game) });
+  });
+
+  app.post('/api/games/:id/chat', authMiddleware, (req, res) => {
+    const user = (req as any).user;
+    const game = db.games.find(g => g.id === req.params.id);
+    const content = String(req.body?.content || '').trim().slice(0, 500);
+    if (!game) return res.status(404).json({ error:'Game not found.' });
+    if (![game.host.id, game.opponent.id].includes(user.id)) return res.status(403).json({ error:'You are not a player in this game.' });
+    if (!content) return res.status(400).json({ error:'Message cannot be empty.' });
+    game.messages = game.messages || [];
+    game.messages.push({ id:crypto.randomUUID(), userId:user.id, displayName:user.displayName, content, createdAt:new Date().toISOString() });
+    game.messages = game.messages.slice(-100);
+    game.updatedAt = new Date().toISOString();
+    saveDB();
+    const payload={type:'game:update',gameId:game.id};
+    broadcastToUser(game.host.id,payload); broadcastToUser(game.opponent.id,payload);
+    res.json({ game:publicGame(game) });
   });
 
   // Vite middleware / Static Serving
