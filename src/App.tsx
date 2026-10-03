@@ -35,6 +35,7 @@ import { signInWithGoogle } from './services/googleAuth';
 import { HomeView } from './views/HomeView';
 import { UsersView } from './views/UsersView';
 import { ChatView } from './views/ChatView';
+import { GamesView } from './views/GamesView';
 import { TeamsView } from './views/TeamsView';
 import { WorkView } from './views/WorkView';
 import { TasksView } from './views/TasksView';
@@ -68,6 +69,7 @@ export default function App() {
     if (clean === 'moderator') return 'MODERATOR_PANEL';
     if (clean === 'users') return 'USERS';
     if (clean === 'chat') return 'CHAT';
+    if (clean === 'games' || clean === 'game') return 'GAMES';
     if (clean === 'teams') return 'TEAMS';
     if (clean === 'friends') return 'FRIENDS';
     if (clean === 'tasks') return 'TASKS';
@@ -86,6 +88,7 @@ export default function App() {
       case 'MODERATOR_PANEL': return '/moderator';
       case 'USERS': return '/users';
       case 'CHAT': return '/chat';
+      case 'GAMES': return '/games';
       case 'TEAMS': return '/teams';
       case 'FRIENDS': return '/friends';
       case 'TASKS': return '/tasks';
@@ -728,6 +731,10 @@ export default function App() {
             workProjects={workProjects}
             onUserUpdated={(u) => setCurrentUser(u)}
           />
+        )}
+
+        {currentSection === 'GAMES' && (
+          <GamesView currentUser={currentUser} friends={friends} />
         )}
 
         {currentSection === 'CHAT' && (
