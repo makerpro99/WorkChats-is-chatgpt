@@ -353,4 +353,16 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(body),
     }),
+  // Games
+  createGame: (body: { gameType: 'TICTACTOE'; opponentId: string }) =>
+    request<{ game: any }>('/games', { method: 'POST', body: JSON.stringify(body) }),
+  joinGame: (gameId: string) =>
+    request<{ game: any }>('/games/' + encodeURIComponent(gameId) + '/join', { method: 'POST' }),
+  getGame: (gameId: string) =>
+    request<{ game: any }>('/games/' + encodeURIComponent(gameId)),
+  gameMove: (gameId: string, index: number) =>
+    request<{ game: any }>('/games/' + encodeURIComponent(gameId) + '/move', { method: 'POST', body: JSON.stringify({ index }) }),
+  gameChat: (gameId: string, content: string) =>
+    request<{ game: any }>('/games/' + encodeURIComponent(gameId) + '/chat', { method: 'POST', body: JSON.stringify({ content }) }),
+
 };
