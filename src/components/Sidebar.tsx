@@ -15,6 +15,7 @@ import {
   LogOut,
   X,
   Sparkles,
+  Gamepad2,
 } from 'lucide-react';
 import { Logo } from './Logo';
 import { User } from '../types';
@@ -25,6 +26,7 @@ export type SectionType =
   | 'HOME'
   | 'USERS'
   | 'CHAT'
+  | 'GAMES'
   | 'TEAMS'
   | 'FRIENDS'
   | 'TASKS'
@@ -73,6 +75,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'HOME', label: isKids ? '🎈 Playground Home' : t('nav.home', 'Home'), icon: Home },
     { id: 'USERS', label: isKids ? '👥 Community Users' : 'Users', icon: Users2 },
     { id: 'CHAT', label: isKids ? '💬 Safe Chat' : t('nav.chat', 'Chat'), icon: MessageSquare, badge: unreadChatCount },
+    { id: 'GAMES', label: isKids ? '🎮 Games' : 'Games', icon: Gamepad2 },
     { id: 'TEAMS', label: isKids ? '👥 Safe Teams' : t('nav.teams', 'Teams'), icon: Users2 },
     { id: 'FRIENDS', label: isKids ? '⭐ Friends' : t('nav.friends', 'Friends'), icon: UserPlus2 },
     { id: 'TASKS', label: isKids ? '📝 My Tasks' : t('nav.tasks', 'Tasks'), icon: CheckSquare2 },
